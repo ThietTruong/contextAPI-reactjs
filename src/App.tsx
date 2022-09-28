@@ -1,24 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import NavBar from "./components/Navbar";
+import ProgressContextProvider from "./contexts/ProgressContext";
+import ThemeContextProvider from "./contexts/ThemeContext";
+import ToggleThemeBtn from "./components/ToggleThemeBtn";
+import MovieContextProvider from "./contexts/MovieContext";
+import Movies from "./components/Movies";
+import AuthContextProvider from "./contexts/AuthContext";
+import { Grid } from "@material-ui/core";
+import TopMovies from "./components/TopMovies";
+import TopMovieContextProvider from "./contexts/TopMoviesContext";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <TopMovieContextProvider>
+        <AuthContextProvider>
+          <MovieContextProvider>
+            <ProgressContextProvider>
+              <ThemeContextProvider>
+                <NavBar />
+                <Grid container>
+                  <Grid item xs={4}>
+                    <TopMovies />
+                  </Grid>
+                  <Grid xs={4}>
+                    <Movies />
+                  </Grid>
+                </Grid>
+                <ToggleThemeBtn />
+              </ThemeContextProvider>
+            </ProgressContextProvider>
+          </MovieContextProvider>
+        </AuthContextProvider>
+      </TopMovieContextProvider>
     </div>
   );
 }
